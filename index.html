@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body onload="onInit()">
+    <header>
+        <h1>My Book Shop</h1>
+    </header>
+    <button class="add" onclick="onAddBook()">Add Book</button>
+    <div class="add-book" hidden>
+        Title: <input type="text" name="title" placeholder="Book Title" /> Price:
+        <input type="text" name="price" placeholder="Book Price" />
+        <button onclick="onSubmitBook()">Add</button>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <th>Id</th>
+                <th class="sort" onclick="onSortBy('title')">Title</th>
+                <th class="sort" onclick="onSortBy('price')">Price</th>
+                <th>Rating</th>
+                <th class="actions" colspan="3">Actions</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="modal">
+        <button class="close" onclick="onCloseModal()">X</button>
+        <h5></h5>
+        <h6></h6>
+        <img src="" />
+        <p></p>
+        <div class="rating-container-outer">
+            <p>Rate this book:</p>
+            <div class="rating-container-inner">
+                <button onclick="onRatingDown()">-</button>
+                <div class="rating">0</div>
+                <button onclick="onRatingUp()">+</button>
+                <button onclick="onUpdateRating()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pages-container">
+        <button onclick="onPrevPage()">
+            <<</button> <span class="pages"></span>
+                <button onclick="onNextPage()">>></button>
+    </div>
+
+    <script src="js/services/util-service.js"></script>
+    <script src="js/services/storage-service.js"></script>
+    <script src="js/services/book-service.js"></script>
+    <script src="js/book-controller.js"></script>
+</body>
+
+</html>
