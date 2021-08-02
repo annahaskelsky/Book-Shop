@@ -1,9 +1,11 @@
 'use strict'
+
 const KEY = 'bookDB'
 const PAGE_SIZE = 5
 var gPageIdx = 0
 var gActivePage = 0
 var gSortBy = 'none'
+var gBookIdForUpdate
 
 
 var gBooks
@@ -17,6 +19,14 @@ function sortBy(opt) {
 
 function getNumOfPages() {
     return Math.ceil(gBooks.length / PAGE_SIZE)
+}
+
+function setIdForUpdate(bookId) {
+    gBookIdForUpdate = bookId
+}
+
+function getBookIdForUpdate() {
+    return gBookIdForUpdate
 }
 
 function updateRating(bookName, newRating) {
@@ -41,33 +51,27 @@ function moveToPage(pageNum) {
     gActivePage = pageNum
 }
 
-function nextPage() {
+function changePage(isNext) {
     var numOfPages = getNumOfPages()
-    if (gPageIdx === numOfPages-1) return
-    gPageIdx++
+    if (gPageIdx === numOfPages - 1 && isNext || !gPageIdx && !isNext) return
+    if (isNext) gPageIdx++
+    else gPageIdx--
     gActivePage = gPageIdx
-    if (gPageIdx * PAGE_SIZE >= gBooks.length) gPageIdx = 0
-}
-
-function prevPage() {
-    if (!gPageIdx) return
-    gPageIdx--
-    gActivePage = gPageIdx
-
+    if (isNext && gPageIdx * PAGE_SIZE >= gBooks.length) gPageIdx = 0
 }
 
 function getBooks() {
     var startIdx = gPageIdx * PAGE_SIZE
     console.log(gBooks);
-    if(gSortBy === 'title') {
-        gBooks.sort(function(book1, book2) {
+    if (gSortBy === 'title') {
+        gBooks.sort(function (book1, book2) {
             return (book1.name > book2.name) ? 1 : -1
         })
-    } else if(gSortBy === 'price') {
-        gBooks.sort(function(book1, book2) {
+    } else if (gSortBy === 'price') {
+        gBooks.sort(function (book1, book2) {
             return book1.price - book2.price
         })
-    } 
+    }
     return gBooks.slice(startIdx, startIdx + PAGE_SIZE)
 }
 

@@ -1,6 +1,5 @@
 'use strict'
 
-
 function onInit() {
     renderBooks()
     renderPages()
@@ -64,7 +63,7 @@ function renderBooks() {
         <td>${book.price}</td>
         <td>${book.rating}</td>
         <td><button class="action-btn read" onclick="onReadBook('${book.id}')">Read</button></td>
-        <td><button class="action-btn update" onclick="onUpdateBook('${book.id}')">Update</button></td>
+        <td><button class="action-btn update" onclick="onUpdateBook('${book.id}', '${book.name}')">Update</button></td>
         <td><button class="action-btn delete" onclick="onDeleteBook('${book.id}')">Delete</button></td>
         </tr>`
     })
@@ -80,9 +79,25 @@ function onDeleteBook(bookId) {
     renderBooks()
 }
 
-function onUpdateBook(bookId) {
-    var newPrice = +prompt('New price?')
+// function onUpdateBook(bookId) {
+//     var newPrice = +prompt('New price?')
+//     updateBook(bookId, newPrice)
+//     renderBooks()
+// }
+
+function onUpdateBook(bookId, bookName) {
+    console.log(bookName);
+    document.querySelector('.title-for-update').innerText = bookName
+    document.querySelector('.update-modal').style.display = 'block'
+    setIdForUpdate(bookId)
+}
+
+function onSubmitUpdate() {
+    var bookId = getBookIdForUpdate()
+    var newPrice = +document.querySelector('[name=new-price]').value
     updateBook(bookId, newPrice)
+    document.querySelector('[name=new-price]').value = ''
+    document.querySelector('.update-modal').style.display = 'none'
     renderBooks()
 }
 
@@ -105,37 +120,21 @@ function onUpdateRating() {
     document.querySelector('.rating').innerText = '0'
 }
 
-function onNextPage() {
-    var prevPage = getActivePage()
-    document.querySelector(`.page-${prevPage}`).classList.remove('active-page')
-    nextPage()
-    var activePage = getActivePage()
-    document.querySelector(`.page-${activePage}`).classList.add('active-page')
-    renderBooks()
-}
-
-function onPrevPage() {
+function onChangePage(isNext) {
     var currPage = getActivePage()
     document.querySelector(`.page-${currPage}`).classList.remove('active-page')
-    prevPage()
+    if (isNext) changePage(true)
+    else changePage(false)
     var activePage = getActivePage()
     document.querySelector(`.page-${activePage}`).classList.add('active-page')
     renderBooks()
 }
 
-function onRatingDown() {
+function onChangeRate(isIncrease) {
     var elRating = document.querySelector('.rating')
-    var newRating;
-    if (+elRating.innerText === 0) return
-    newRating = +elRating.innerText - 1
-    elRating.innerText = newRating
-}
-
-function onRatingUp() {
-    var elRating = document.querySelector('.rating')
-    var newRating;
-    if (+elRating.innerText === 10) return
-    newRating = +elRating.innerText + 1
+    var newRating
+    if ((+elRating.innerText === 0 && !isIncrease) || (+elRating.innerText === 10 && isIncrease)) return
+    newRating = (isIncrease) ? +elRating.innerText + 1 : +elRating.innerText - 1
     elRating.innerText = newRating
 }
 

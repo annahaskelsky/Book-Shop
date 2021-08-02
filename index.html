@@ -20,8 +20,9 @@
     <div class="add-book" hidden>
         Title: <input type="text" name="title" placeholder="Book Title" /> Price:
         <input type="text" name="price" placeholder="Book Price" />
-        <button onclick="onSubmitBook()">Add</button>
+        <button class="sumbit-book" onclick="onSubmitBook()">Add</button>
     </div>
+    
     <div class="table-container">
         <table>
             <thead>
@@ -34,6 +35,13 @@
             <tbody></tbody>
         </table>
     </div>
+
+<div class="update-modal">
+    Please enter the new price for <span class="title-for-update"></span>
+    <input name="new-price" type="text" placeholder="New price" />
+    <button class="submit-update" onclick="onSubmitUpdate()">Add</button>
+</div>
+
     <div class="modal">
         <button class="close" onclick="onCloseModal()">X</button>
         <h5></h5>
@@ -43,18 +51,18 @@
         <div class="rating-container-outer">
             <p>Rate this book:</p>
             <div class="rating-container-inner">
-                <button onclick="onRatingDown()">-</button>
+                <button onclick="onChangeRate(false)">-</button>
                 <div class="rating">0</div>
-                <button onclick="onRatingUp()">+</button>
+                <button onclick="onChangeRate(true)">+</button>
                 <button onclick="onUpdateRating()">Save</button>
             </div>
         </div>
     </div>
 
     <div class="pages-container">
-        <button onclick="onPrevPage()">
+        <button onclick="onChangePage(false)">
             <<</button> <span class="pages"></span>
-                <button onclick="onNextPage()">>></button>
+                <button onclick="onChangePage(true)">>></button>
     </div>
 
     <script src="js/services/util-service.js"></script>

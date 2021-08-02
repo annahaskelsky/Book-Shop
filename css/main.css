@@ -27,9 +27,12 @@ tbody {
     background-color: #ebebeb;
 }
 
+tr {
+    border-bottom: 1px solid gray;
+}
+
 td, th {
     height: 50px;
-    border: 1px solid black;
     text-align: center;
     padding: 10px;
 }
@@ -37,7 +40,6 @@ td, th {
 th {
     background-color: black;
     color: white;
-    border-right: 1px solid white;
 }
 
 button.add {
@@ -54,6 +56,23 @@ button.add {
 
 button.add:hover {
     padding: 10px 25px;
+    background-color: black;
+    color: white;
+}
+
+button.sumbit-book, button.submit-update {
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-family: 'Raleway', sans-serif;
+    background-color: #d8d8d8;
+    outline: 0;
+    border: 0;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+button.sumbit-book:hover {
     background-color: black;
     color: white;
 }
@@ -141,6 +160,41 @@ button.delete {
     cursor: pointer;
 }
 
+.update-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 300px;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 150px;
+    padding: 10px;
+    background-color: #ffb84de7;
+    margin: auto;
+    border: 5px solid black;
+    border-radius: 5px;
+}
+
+[name=new-price] {
+    margin-top: 20px;
+}
+
+.title-for-update {
+    font-weight: bold;
+}
+
+button.submit-update {
+    margin-top: 10px;
+    background-color: #fff;
+}
+
+button.submit-update:hover {
+    padding: 5px 25px;
+    background-color: black;
+    color: white;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -148,7 +202,6 @@ button.delete {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
     height: 90%;
     overflow: auto;
     width: 60%;
