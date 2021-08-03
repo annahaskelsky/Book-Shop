@@ -10,7 +10,12 @@ body {
     background-repeat: no-repeat;
 }
 
+body.rtl {
+    direction: rtl;
+}
+
 h1 {
+    color: #222222;
     font-weight: 800;
     font-size: 40px;
     letter-spacing: 2px;
@@ -21,6 +26,7 @@ h1 {
 table {
     border-collapse: collapse;
     margin: auto;
+    width:fit-content;
 }
 
 tbody {
@@ -29,16 +35,18 @@ tbody {
 
 tr {
     border-bottom: 1px solid gray;
+    height: 70px;
 }
 
 td, th {
     height: 50px;
     text-align: center;
     padding: 10px;
+    margin: 0 10px;
 }
 
 th {
-    background-color: black;
+    background-color: #222222;
     color: white;
 }
 
@@ -92,6 +100,22 @@ td button:hover {
     opacity: 1;
 }
 
+td.book-title {
+    width: 500px;
+}
+
+td.book-price {
+    width: 200px;
+}
+
+td.book-rating {
+    width: 80px;
+}
+
+td.action-td {
+    width: 200px;
+}
+
 button.read {
     background-color: #4791db;
 }
@@ -104,24 +128,41 @@ button.delete {
     background-color: #f44336;
 }
 
+.langs {
+    display: flex;
+    justify-content: space-between;
+    width: 120px;
+    margin-inline-start: 40px;
+    position: absolute;
+    top: 10px;
+}
+
+.he, .en {
+    border: 2px solid white;
+    padding: 3px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.he:hover, .en:hover {
+    background-color: #222222;
+    color: white;
+}
+
 .table-container {
     margin: 20px auto;
     align-self: center;
     width: 668px;
-    height: 339px;
+    height: 420px;
 }
 
 .book-title {
     font-weight: bold;
 }
 
-.actions {
-    border-right: 1px solid black;
-}
-
 .pages-container {
     width: fit-content;
-    margin: auto;
+    margin: 50px auto;
     display: flex;
     justify-content: space-around;
 }
@@ -146,7 +187,7 @@ button.delete {
     background-color: white;
 }
 
-.page:hover {
+.page:not(.active-page):hover {
     background-color: #ebebeb;
 }
 
@@ -168,7 +209,7 @@ button.delete {
     top: 300px;
     transform: translate(-50%, -50%);
     width: 250px;
-    height: 150px;
+    height: 200px;
     padding: 10px;
     background-color: #ffb84de7;
     margin: auto;
@@ -222,6 +263,7 @@ button.close {
     padding: 5px;
     border: 1px solid gray;
     transition: all 0.2s;
+    cursor: pointer;
 }
 
 button.close:hover {
@@ -257,8 +299,27 @@ h6 {
     font-weight: bold;
 }
 
-.rating-container-inner button {
+.rating-container-inner button:not(.save-rating) {
     border-radius: 4px;
     border: 1px solid gray;
     cursor: pointer;
+    width: 25px;
+    height: 25px;
+}
+
+.rating-container-inner button:hover {
+    background-color: #fbe0e9;
+    border: 1px solid #dd1364;
+}
+
+.rating-container-inner button:active {
+    background-color: #dd1364;
+    color: white;
+}
+
+.save-rating {
+    border-radius: 4px;
+    border: 1px solid gray;
+    cursor: pointer;
+    padding: 5px 10px;
 }

@@ -108,7 +108,7 @@ function _createBook(bookName, price) {
     return {
         id: makeId(),
         name: bookName,
-        price: price || getRandomIntInclusive(30, 100),
+        price: price || getRandomIntInclusive(10, 30),
         rating: 0,
         desc: makeLorem()
     }

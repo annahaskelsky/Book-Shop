@@ -3,6 +3,7 @@
 function onInit() {
     renderBooks()
     renderPages()
+    doTrans()
     var currPage = getActivePage()
     console.log(currPage);
     document.querySelector(`.page-${currPage}`).classList.add('active-page')
@@ -11,6 +12,7 @@ function onInit() {
 function onSortBy(opt) {
     sortBy(opt)
     renderBooks()
+    doTrans()
 }
 
 function renderPages() {
@@ -31,6 +33,7 @@ function onMoveToPage(pageNum, elPage) {
     elPage.classList.add('active-page')
     moveToPage(+pageNum)
     renderBooks()
+    doTrans()
 }
 
 function onAddBook() {
@@ -51,6 +54,7 @@ function onSubmitBook() {
     renderPages()
     onMoveToPage(0)
     renderBooks()
+    doTrans()
 }
 
 function renderBooks() {
@@ -60,11 +64,11 @@ function renderBooks() {
         strHTMLs += `<tr>
         <td>${book.id}</td>
         <td class="book-title">${book.name}</td>
-        <td>${book.price}</td>
-        <td>${book.rating}</td>
-        <td><button class="action-btn read" onclick="onReadBook('${book.id}')">Read</button></td>
-        <td><button class="action-btn update" onclick="onUpdateBook('${book.id}', '${book.name}')">Update</button></td>
-        <td><button class="action-btn delete" onclick="onDeleteBook('${book.id}')">Delete</button></td>
+        <td class="book-price" data-price="${book.price}">${book.price}</td>
+        <td class="book-rating">${book.rating}/10</td>
+        <td class="action-td"><button class="action-btn read" data-trans="actions-read" onclick="onReadBook('${book.id}')">Read</button></td>
+        <td class="action-td"><button class="action-btn update" data-trans="actions-update" onclick="onUpdateBook('${book.id}', '${book.name}')">Update</button></td>
+        <td class="action-td"><button class="action-btn delete" data-trans="actions-delete" onclick="onDeleteBook('${book.id}')">Delete</button></td>
         </tr>`
     })
     var elTBody = document.querySelector('tbody')
@@ -77,16 +81,10 @@ function onDeleteBook(bookId) {
     var activePage = getActivePage()
     onMoveToPage(activePage)
     renderBooks()
+    doTrans()
 }
 
-// function onUpdateBook(bookId) {
-//     var newPrice = +prompt('New price?')
-//     updateBook(bookId, newPrice)
-//     renderBooks()
-// }
-
 function onUpdateBook(bookId, bookName) {
-    console.log(bookName);
     document.querySelector('.title-for-update').innerText = bookName
     document.querySelector('.update-modal').style.display = 'block'
     setIdForUpdate(bookId)
@@ -99,13 +97,14 @@ function onSubmitUpdate() {
     document.querySelector('[name=new-price]').value = ''
     document.querySelector('.update-modal').style.display = 'none'
     renderBooks()
+    doTrans()
 }
 
 function onReadBook(bookId) {
     var book = getBookById(bookId)
     var elModal = document.querySelector('.modal')
     elModal.querySelector('h5').innerText = book.name
-    elModal.querySelector('h6').innerText = `₪${book.price}`
+    elModal.querySelector('h6').innerText = formatPrice(book.price, getCurrLang())
     elModal.querySelector('img').src = `img/${(book.name).split(' ').join('-')}.jpg`
     elModal.querySelector('p').innerText = book.desc
     elModal.style.display = 'block'
@@ -118,6 +117,7 @@ function onUpdateRating() {
     updateRating(elBookName, elRating)
     renderBooks()
     document.querySelector('.rating').innerText = '0'
+    doTrans()
 }
 
 function onChangePage(isNext) {
@@ -128,6 +128,7 @@ function onChangePage(isNext) {
     var activePage = getActivePage()
     document.querySelector(`.page-${activePage}`).classList.add('active-page')
     renderBooks()
+    doTrans()
 }
 
 function onChangeRate(isIncrease) {
@@ -140,4 +141,11 @@ function onChangeRate(isIncrease) {
 
 function onCloseModal() {
     document.querySelector('.modal').style.display = 'none'
+}
+
+function onSetLang(lang) {
+    setLang(lang)
+    if (lang === 'he') document.body.classList.add('rtl')
+    else document.body.classList.remove('rtl')
+    doTrans()
 }
